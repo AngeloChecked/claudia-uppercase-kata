@@ -4,14 +4,11 @@ const UppercaseStreamConverter = require('../delivery/UppercaseStreamConverter')
 const S3FileSystem = require('../delivery/S3FileSystem'); 
 
 exports.handler = (event, context, bc) => {
-  
   let eventRecord = event.Records && event.Records[0];
-
   if (!eventRecord) {
     context.fail("no records in the event");
     return;
   }
-
   if (!(eventRecord.eventSource === "aws:s3" && eventRecord.s3)) {
     context.fail("unsupported event source");
     return;
