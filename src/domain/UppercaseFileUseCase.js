@@ -12,7 +12,7 @@ module.exports = class UppercaseFileUseCase {
       this.fileSystem.writeFromStream(this.outputfilename, bucket, uppercaseStream, this.context.done);
     };
   
-    run(eventRecord){
-      this.convert(eventRecord.s3.bucket.name, eventRecord.s3.object.key);
+    run(domainEvent){
+      this.convert(domainEvent.bucketName, domainEvent.fileName);
     }
   }
