@@ -1,7 +1,7 @@
 var aws = require('aws-sdk');
 var assert = require('assert')
 
-var bucketName = "claudia-uppercase-test"
+var bucketName = "claudia2"
 var inputFileName = "inputfile.txt"
 var outputFileName = "outputfile.txt"
 

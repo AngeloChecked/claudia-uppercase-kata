@@ -4,8 +4,8 @@
   "description": "Inspiration taken from [this article on claudiajs.com](https://claudiajs.com/tutorials/designing-testable-lambdas.html).",
   "main": "index.js",
   "scripts": {
-    "test": "mocha index_test.js",
-    "create": "claudia create --region us-east-1 --handler index.handler",
+    "test": "mocha src/tests/index_test.js",
+    "create": "claudia create --region us-east-1 --handler src/functions/index.handler",
     "add-s3-event-source": "claudia add-s3-event-source --region us-east-1",
     "deploy": "claudia update",
     "destroy": "claudia destroy && rm claudia.json"
