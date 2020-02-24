@@ -14,10 +14,13 @@ exports.handler = (event, context, bc) => {
     return;
   }
 
+  let inputFileName = eventRecord.s3.object.key
+  let outputFileName = inputFileName.replace(/^in/, 'out')
   let usecase = new UppercaseFileUseCase(
     new UppercaseStreamConverter(), 
     new S3FileSystem(),
-    context
+    context,
+    outputFileName
   )
   
   usecase.run(eventRecord);
