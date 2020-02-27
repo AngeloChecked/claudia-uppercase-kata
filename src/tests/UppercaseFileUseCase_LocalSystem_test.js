@@ -8,10 +8,10 @@ class LocalFileSystem {
   readAsStream = (fileName, _) =>
     fs.createReadStream(fileName, { encoding: "utf8" });
 
-  writeFromStream(fileName, _, inputStream, callback) {
+  writeFromStream(fileName, _, inputStream, done) {
     let outputStream = fs.createWriteStream(fileName, { encoding: "utf8" });
     inputStream.pipe(outputStream);
-    inputStream.on("finish", callback);
+    inputStream.on("finish", done);
   }
 }
 

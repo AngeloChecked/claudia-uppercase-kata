@@ -6,7 +6,7 @@ module.exports = class UppercaseFileUseCase {
     this.done = done;
   }
 
-  convert(bucket, fileKey) {
+  convertUppercaseAndWriteToSystem(bucket, fileKey) {
     let stream = this.fileSystem.readAsStream(fileKey, bucket);
     let uppercaseStream = this.streamConverter.convertStream(stream);
     this.fileSystem.writeFromStream(
@@ -18,6 +18,6 @@ module.exports = class UppercaseFileUseCase {
   }
 
   run(domainEvent) {
-    this.convert(domainEvent.bucketName, domainEvent.fileName);
+    this.convertUppercaseAndWriteToSystem(domainEvent.bucketName, domainEvent.fileName);
   }
 };

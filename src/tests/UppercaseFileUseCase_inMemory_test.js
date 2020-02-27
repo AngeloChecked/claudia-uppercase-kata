@@ -16,12 +16,12 @@ class InMemoryFileSystem {
 
   readAsStream = () => Readable.from([this.inputString]);
 
-  writeFromStream(fileName, bucketName, inputStream, contextCallback) {
+  writeFromStream(fileName, bucketName, inputStream, done) {
     let outputStream = new Writable({
       write: (chunk, encoding, streamCallback) => this.chunks.push(chunk)
     });
     inputStream.pipe(outputStream);
-    inputStream.on("finish", contextCallback);
+    inputStream.on("finish", done);
   }
 }
 
