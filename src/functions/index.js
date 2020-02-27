@@ -1,11 +1,10 @@
+const UppercaseFileUseCase = require("../domain/UppercaseFileUseCase");
+const UppercaseStreamConverter = require("../delivery/UppercaseStreamConverter");
+const S3FileSystem = require("../delivery/S3FileSystem");
 
-const UppercaseFileUseCase = require('../domain/UppercaseFileUseCase'); 
-const UppercaseStreamConverter = require('../delivery/UppercaseStreamConverter'); 
-const S3FileSystem = require('../delivery/S3FileSystem'); 
-
-const mapDomainEventFrom = (eventRecord) => ({
-    fileName: eventRecord.s3.object.key,
-    bucketName: eventRecord.s3.bucket.name
+const mapDomainEventFrom = eventRecord => ({
+  fileName: eventRecord.s3.object.key,
+  bucketName: eventRecord.s3.bucket.name
 });
 
 exports.handler = (event, context, bc) => {
@@ -19,18 +18,15 @@ exports.handler = (event, context, bc) => {
     return;
   }
 
-  let inputFileName = eventRecord.s3.object.key
-  let outputFileName = inputFileName.replace(/^in/, 'out')
+  let inputFileName = eventRecord.s3.object.key;
+  let outputFileName = inputFileName.replace(/^in/, "out");
   let usecase = new UppercaseFileUseCase({
-      streamConverter: new UppercaseStreamConverter(), 
-      fileSystem: new S3FileSystem(),
-      outputfilename: outputFileName,
-      done: context.done
-    })
-  
-  let domainEvent = mapDomainEventFrom(eventRecord)
+    streamConverter: new UppercaseStreamConverter(),
+    fileSystem: new S3FileSystem(),
+    outputfilename: outputFileName,
+    done: context.done
+  });
+
+  let domainEvent = mapDomainEventFrom(eventRecord);
   usecase.run(domainEvent);
 };
-
-
-
