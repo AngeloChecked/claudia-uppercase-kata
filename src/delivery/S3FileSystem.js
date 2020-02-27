@@ -15,12 +15,12 @@ module.exports = class S3FileSystem {
       return stream;
     }
   
-    writeFromStream(s3Key, bucket, stream, callback) {
+    writeFromStream(s3Key, bucket, stream, doneCallback) {
       this.s3.upload({
           Bucket: bucket,
           Key: s3Key,
           Body: stream,
           ACL: "private"
-        }, callback);
+        }, doneCallback);
     }
 }

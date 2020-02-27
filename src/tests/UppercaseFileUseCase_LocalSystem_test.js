@@ -26,12 +26,11 @@ describe("Local File System Test", () => {
 
     it("Output file should be uppercased",async () => {
         await new Promise((resolve, reject) => {
-            let context = { done: resolve };
             let usecase = new UppercaseFileUseCase({
                 streamConverter: new UppercaseStreamConverter(), 
                 fileSystem: new LocalFileSystem(),
-                context: context,
-                outputfilename:  outputFileName 
+                outputfilename:  outputFileName,
+                done: resolve
             });
             let domainEvent = {
                 fileName: inputFileName,

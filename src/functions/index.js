@@ -24,8 +24,8 @@ exports.handler = (event, context, bc) => {
   let usecase = new UppercaseFileUseCase({
       streamConverter: new UppercaseStreamConverter(), 
       fileSystem: new S3FileSystem(),
-      context:context,
-      outputfilename:  outputFileName 
+      outputfilename: outputFileName,
+      done: context.done
     })
   
   let domainEvent = mapDomainEventFrom(eventRecord)

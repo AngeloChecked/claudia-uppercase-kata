@@ -1,15 +1,15 @@
 module.exports = class UppercaseFileUseCase {
-    constructor({streamConverter, fileSystem, context, outputfilename}){
+    constructor({streamConverter, fileSystem, done, outputfilename}){
       this.streamConverter = streamConverter;
       this.fileSystem = fileSystem;
-      this.context = context;
-      this.outputfilename = outputfilename
+      this.outputfilename = outputfilename;
+      this.done = done;
     }
   
     convert(bucket, fileKey) {
       let stream = this.fileSystem.readAsStream(fileKey, bucket);
       let uppercaseStream = this.streamConverter.convertStream(stream);
-      this.fileSystem.writeFromStream(this.outputfilename, bucket, uppercaseStream, this.context.done);
+      this.fileSystem.writeFromStream(this.outputfilename, bucket, uppercaseStream, this.done);
     };
   
     run(domainEvent){
