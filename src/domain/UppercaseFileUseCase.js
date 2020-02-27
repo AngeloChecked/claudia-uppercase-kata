@@ -1,5 +1,5 @@
 module.exports = class UppercaseFileUseCase {
-    constructor(streamConverter, fileSystem, context, outputfilename){
+    constructor({streamConverter, fileSystem, context, outputfilename}){
       this.streamConverter = streamConverter;
       this.fileSystem = fileSystem;
       this.context = context;

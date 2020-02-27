@@ -35,9 +35,12 @@ describe("In Memory File System Test", () => {
     it("Output text should be uppercased",async () => {
         await new Promise((resolve, reject) => {
             let context = { done: resolve };
-            let usecase = new UppercaseFileUseCase(
-                    new UppercaseStreamConverter(), fileSystem, context, null
-                );
+            let usecase = new UppercaseFileUseCase({
+                    streamConverter: new UppercaseStreamConverter(), 
+                    fileSystem: fileSystem,
+                    context: context,
+                    outputfilename:  null 
+                });
             let domainEvent = {
                 fileName: null,
                 bucketName: 'buketName'

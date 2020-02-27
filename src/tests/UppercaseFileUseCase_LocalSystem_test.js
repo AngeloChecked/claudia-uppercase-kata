@@ -4,7 +4,7 @@ const UppercaseStreamConverter = require('../delivery/UppercaseStreamConverter')
 const assert = require('assert')
 const fs = require('fs');
 
-class RealFileSystem {
+class LocalFileSystem {
     
     readAsStream = (fileName, _) => fs.createReadStream(fileName, {encoding: 'utf8'});
 
@@ -27,12 +27,12 @@ describe("Local File System Test", () => {
     it("Output file should be uppercased",async () => {
         await new Promise((resolve, reject) => {
             let context = { done: resolve };
-            let usecase = new UppercaseFileUseCase(
-                    new UppercaseStreamConverter(),
-                    new RealFileSystem(),
-                    context,
-                    outputFileName
-                )
+            let usecase = new UppercaseFileUseCase({
+                streamConverter: new UppercaseStreamConverter(), 
+                fileSystem: new LocalFileSystem(),
+                context: context,
+                outputfilename:  outputFileName 
+            });
             let domainEvent = {
                 fileName: inputFileName,
                 bucketName: 'buketName'
